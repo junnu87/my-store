@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <h2 class="pl-2 text-center">The Mobile Phone Store</h2>
+
+
+    <img src="/assets/iso-iphone-xs.jpg" class="img-fluid">
+</div>
+
+<div class="sample-images bg-light p-5">
+    <div class="row mt-5 mb-5">
+        <div class="col-4"><img src="/assets/pieni-iphone-7.png" class="img-fluid"></div>
+        <div class="col-4"><img src="/assets/pieni-iphone-x.png" class="img-fluid"></div>
+        <div class="col-4"><img src="/assets/pieni-samsung.png" class="img-fluid"></div>
+    </div>
+</div>
+<hr>
+
+<div class="container" *ngFor="let product of products; index as productId">
+
+    <div *ngIf="product.imgUrl">
+        <img [src]="product.imgUrl" class="img-fluid p-5">
+    </div>
+    <h3 class="pl-2">
+        <a [title]="product.name + ' details' "
+            [routerLink]="['/products', productId]">
+            {{ product.name }}
+        </a>
+    </h3>
+    <p class="price">{{ product.price | currency }}</p>
+
+    <div class="pl-2">
+        <p *ngIf="product.short_description"
+        [routerLink]="['/products', productId]">
+        Description: {{product.short_description }}
+        </p>
+
+        <button class="btn btn-primary btn-sm mr-2"
+            (click)="share()">
+            <i class="fab fa-facebook-square"></i>
+        </button>
+        <button class="btn btn-primary btn-sm mr-2"
+            (click)="share()">
+            <i class="fab fa-twitter-square"></i>
+        </button>
+        <button class="btn btn-primary btn-sm mr-2"
+            (click)="share()">
+            <i class="fab fa-instagram-square"></i>
+        </button>
+
+        <button class="btn btn-info ml-5" (click)="addToCart(product)">Buy Now</button>
+    </div>
+    <app-product-alerts
+    [product]="product"
+    (notify)="onNotify()">
+    </app-product-alerts>
+    <hr>
+</div>
